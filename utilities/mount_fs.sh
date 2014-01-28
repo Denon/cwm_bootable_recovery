@@ -17,7 +17,7 @@ if $BB [ ! -d /.secondrom ] ; then
 $BB mkdir -p /.secondrom
 fi
 
-BLOCKDEVICE=mmcblk0p25
+BLOCKDEVICE=mmcblk1p1
 
 ########## initial preparation of dualboot recovery ##############################################
 if [ "$1" == "initial" ] ; then
@@ -25,11 +25,11 @@ if [ "$1" == "initial" ] ; then
 if ! $BB grep -q /.secondrom /proc/mounts ; then
         $MOUNT -t ext4 -o rw /dev/block/$BLOCKDEVICE /.secondrom
    fi
-$BB mkdir -p /.secondrom/media/.secondrom/data
+$BB mkdir -p /.secondrom/data/media
    $UMOUNT /data/media
    if ! $BB grep -q /data/media /proc/mounts ; then
         $BB mkdir -p /data/media
-        $MOUNT --bind /.secondrom/media /data/media
+        $MOUNT -r /.secondrom/data/media /data/media
    fi
 
 elif [ "$1" == "boot_primary" ] ; then
