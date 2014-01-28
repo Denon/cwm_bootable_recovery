@@ -5,9 +5,9 @@ FILESYSTEM=$1
 
 BLOCKDEVICE=mmcblk1p1
 
-if ! $BB grep -q /dev/block/$BLOCKDEVICE /proc/mounts ; then
-        $mke2fs -t ext4 /dev/block/$BLOCKDEVICE
-   fi
+#if ! $BB grep -q /dev/block/$BLOCKDEVICE /proc/mounts ; then
+#        $mke2fs -t ext4 /dev/block/$BLOCKDEVICE
+#   fi
 
 if ! $BB grep -q /.secondrom /proc/mounts ; then
         $MOUNT -t ext4 -o rw /dev/block/$BLOCKDEVICE /.secondrom
