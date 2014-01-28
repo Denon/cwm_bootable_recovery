@@ -3,7 +3,11 @@
 BB="busybox"
 FILESYSTEM=$1
 
-BLOCKDEVICE=mmcblk0p25
+BLOCKDEVICE=mmcblk1p1
+
+if ! $BB grep -q /dev/block/$BLOCKDEVICE /proc/mounts ; then
+        $mke2fs -t ext4 /dev/block/$BLOCKDEVICE
+   fi
 
 if ! $BB grep -q /.secondrom /proc/mounts ; then
         $MOUNT -t ext4 -o rw /dev/block/$BLOCKDEVICE /.secondrom
@@ -11,12 +15,12 @@ if ! $BB grep -q /.secondrom /proc/mounts ; then
 
 if ! $BB grep -q /data/media /proc/mounts ; then
         $BB mkdir -p /data/media
-        $MOUNT -t ext4 -r /.secondrom/media /data/media
+        $MOUNT -t ext4 -r /.secondrom/data/media /data/media
    fi
 
-$BB mkdir -p /.secondrom/media/.secondrom/data
-$BB mkdir -p /.secondrom/media/.secondrom
-system=/.secondrom/media/.secondrom/system.img
+$BB mkdir -p /.secondrom/data
+$BB mkdir -p /.secondrom/data/media
+system=/.secondrom/system.img
 
 if $BB [ ! -f $system ] ; then
         echo "no system.img found: creating it now..."
