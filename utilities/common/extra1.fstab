@@ -2,4 +2,4 @@
 # used to partition sdcard and format it to ext2/ext3
 
 /dev/block/mmcblk1p1  /.secondrom   ext4  defaults  defaults
-/.secondrom           /data         bind  defaults  defaults
+/dev/block/mmcblk0p25 /data         ext4  defaults  defaults
