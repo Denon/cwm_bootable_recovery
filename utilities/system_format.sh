@@ -9,7 +9,7 @@ exec >>/tmp/system_format.txt 2>&1
 if $BB [ "$FILESYSTEM" == "secondary" ]; then
 $BB umount -f /system
 $BB mkdir -p /system
-system=/.secondrom/media/.secondrom/system.img
+system=/.secondrom/system.img
 $BB mount -t ext4 -o rw $system /system
 $BB rm -rf /system/*
 $BB rm -rf /system/.*
